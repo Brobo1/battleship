@@ -1,8 +1,8 @@
 class Ship {
-  constructor(length, hits, sunk) {
+  constructor(length, hits) {
     this.length = length;
     this.hits = hits;
-    this.sunk = sunk;
+    this.sunk = false;
   }
 
   hit() {
@@ -21,3 +21,5 @@ class Ship {
 const ship = new Ship(3, 2);
 ship.hit();
 console.log(ship.isSunk());
+
+module.exports = { Ship };

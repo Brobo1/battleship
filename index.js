@@ -2,7 +2,7 @@ class Ship {
   constructor(length, hits, sunk) {
     this.length = length;
     this.hits = hits;
-    this.sunk = false;
+    this.sunk = sunk;
   }
 
   hit() {
@@ -10,10 +10,14 @@ class Ship {
   }
 
   isSunk() {
-    return this.hits >= this.length;
+    if (this.hits >= this.length) {
+      this.sunk = true;
+      return true;
+    }
+    return false;
   }
 }
 
-const ship = new Ship(3, 2, false);
+const ship = new Ship(3, 2);
 ship.hit();
 console.log(ship.isSunk());

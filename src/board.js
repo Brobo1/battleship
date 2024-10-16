@@ -4,3 +4,5 @@ class Board {
     this.width = width;
   }
 }
+
+module.exports = { Board };

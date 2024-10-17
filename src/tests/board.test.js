@@ -14,11 +14,11 @@ describe("Board", () => {
 
   test("Should place ship on the board", () => {
     let ship = new Ship(4);
-    board.placeShip(1, 1, ship, "h");
-    expect(board.board[1][1]).toBe(ship);
-    expect(board.board[2][1]).toBe(ship);
-    expect(board.board[3][1]).toBe(ship);
-    expect(board.board[4][1]).toBe(ship);
+    let x = 1;
+    board.placeShip(x, 1, ship, "h");
+    for (let i = 0; i < ship.length; i++) {
+      expect(board.board[x + i][1]).toBe(ship);
+    }
   });
 
   test("Should track ships on the board", () => {
@@ -26,5 +26,11 @@ describe("Board", () => {
     board.placeShip(1, 1, ship, "h");
     console.log(board.ships);
     expect(board.ships).toContain(ship);
+  });
+  test("Should track hit on ship", () => {
+    let ship = new Ship(4);
+    board.placeShip(1, 1, ship, "h");
+    board.hit(1, 1);
+    expect(ship.hits).toContain(ship);
   });
 });

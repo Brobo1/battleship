@@ -24,8 +24,14 @@ class Board {
     this.board = boardCopy;
     this.ships = [...this.ships, ship];
   }
-}
 
-// let board = new Board();
+  hit(x, y) {
+    if (this.board[x][y]) {
+      this.hits.push({ x: x, y: y, hit: true });
+      this.board[x][y].hit(1);
+      console.log(this.board[x][y]);
+    } else this.hits.push({ x: x, y: y, hit: false });
+  }
+}
 
 module.exports = { Board };

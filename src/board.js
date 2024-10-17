@@ -15,12 +15,14 @@ class Board {
   }
 
   placeShip(x, y, ship, direction = "h") {
-    this.ships.push(ship);
+    let boardCopy = JSON.parse(JSON.stringify(this.board));
     for (let i = 0; i < ship.length; i++) {
       if (direction === "h") {
-        this.board[x + i][y] = ship;
-      } else this.board[x][y + i] = ship;
+        boardCopy[x + i][y] = ship;
+      } else boardCopy[x][y + i] = ship;
     }
+    this.board = boardCopy;
+    this.ships = [...this.ships, ship];
   }
 }
 

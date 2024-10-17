@@ -1,4 +1,4 @@
-const Board = require("./Board").Board;
+const Board = require("./../board").Board;
 
 describe("Board", () => {
   let board;
@@ -8,4 +8,6 @@ describe("Board", () => {
   });
 
   test("Should return a correct grid size", () => {});
+
+  test("Should place ship on the board", () => {});
 });

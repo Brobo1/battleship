@@ -1,4 +1,4 @@
-const Ship = require("./ship").Ship;
+const Ship = require("./../ship").Ship;
 
 describe("Ship", () => {
   let ship;

@@ -6,4 +6,6 @@ describe("Board", () => {
   beforeEach(() => {
     board = new Board();
   });
+
+  test("Should return a correct grid size", () => {});
 });

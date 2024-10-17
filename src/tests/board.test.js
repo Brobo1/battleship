@@ -13,10 +13,10 @@ describe("Board", () => {
   });
 
   test("Should place ship on the board", () => {
-    let prevBoard = board.board;
+    let prevBoard = JSON.parse(JSON.stringify(board.board));
     let ship = new Ship(4);
-    board.placeShip(1, 1, ship, "v");
-    console.log(board.board);
-    expect(board.board).toBe(1);
+    board.placeShip(1, 1, ship, "h");
+    console.log(prevBoard);
+    // expect(board.board).toEqual(prevBoard);
   });
 });

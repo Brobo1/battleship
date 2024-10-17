@@ -3,8 +3,6 @@ class Ship {
     this.length = length;
     this.hits = Array(length).fill(false);
     this.sunk = false;
-    this.direction = "horizontal";
-    this.position = [];
   }
 
   hit(pos) {
@@ -20,14 +18,6 @@ class Ship {
       return true;
     }
     return false;
-  }
-
-  setPosition(position) {
-    this.position = position;
-  }
-
-  setDirection(direction) {
-    this.direction = direction;
   }
 }
 

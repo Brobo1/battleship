@@ -1,18 +1,23 @@
 class Board {
   constructor() {
-    this.height = 10;
+    this.length = 10;
     this.width = 10;
-    this.board = this.buildBoard();
+    this.board = [];
+    this.buildBoard();
     this.hits = [];
   }
 
   buildBoard() {
-    return Array.from({ length: this.height }, () => Array(this.width).fill(0));
+    this.board = Array.from({ length: this.length }, () =>
+      Array(this.width).fill(0),
+    );
   }
 
-  placeShip(x, y, ship) {}
+  placeShip(x, y, ship) {
+    for (let i = 0; i < ship.length; i++) {}
+  }
 }
 
-let board = new Board();
+// let board = new Board();
 
 module.exports = { Board };

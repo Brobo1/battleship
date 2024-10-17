@@ -31,6 +31,7 @@ describe("Board", () => {
     let ship = new Ship(4);
     board.placeShip(1, 1, ship, "h");
     board.hit(1, 1);
-    expect(ship.hits).toContain(ship);
+    board.hit(2, 1);
+    expect(ship.hits).toEqual([true, true, false, false]);
   });
 });

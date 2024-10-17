@@ -21,15 +21,21 @@ class Board {
         boardCopy[x + i][y] = ship;
       } else boardCopy[x][y + i] = ship;
     }
+
     this.board = boardCopy;
     this.ships = [...this.ships, ship];
   }
 
   hit(x, y) {
     if (this.board[x][y]) {
+      let ship = this.board[x][y];
+      for (let i = 0; i < ship.hits.length; i++) {
+        if (!ship.hits[i]) {
+          ship.hits[i] = true;
+          break;
+        }
+      }
       this.hits.push({ x: x, y: y, hit: true });
-      this.board[x][y].hit(1);
-      console.log(this.board[x][y]);
     } else this.hits.push({ x: x, y: y, hit: false });
   }
 }

@@ -15,6 +15,8 @@ describe("Board", () => {
   test("Should place ship on the board", () => {
     let prevBoard = board.board;
     let ship = new Ship(4);
-    expect(board).toBe(prevBoard);
+    board.placeShip(1, 1, ship, "v");
+    console.log(board.board);
+    expect(board.board).toBe(1);
   });
 });

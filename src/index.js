@@ -36,7 +36,10 @@ function assignBoard() {
 }
 
 grids.addEventListener("click", (e) => {
-  console.log(e.target.dataset);
+  const cell = e.target;
+  if (cell.className === "cell") {
+    console.log(`${cell.dataset.row}, ${cell.dataset.col}`);
+  }
 });
 
 // assignBoard();

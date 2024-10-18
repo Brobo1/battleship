@@ -13,11 +13,15 @@ function createBoard(player) {
   let grid = document.createElement("div");
   grid.className = "grid";
 
-  for (const cells of player.board.board) {
+  for (let i = 0; i < player.board.width; i++) {
     let row = document.createElement("div");
     row.className = "row";
-    for (const cell of cells) {
-      row.innerHTML += `<div class="cell">| 0 |</div>`;
+    row.dataset.row = i.toString();
+    for (let j = 0; j < player.board.length; j++) {
+      let cell = document.createElement("div");
+      cell.className = "cell";
+      cell.dataset.col = j.toString();
+      row.appendChild(cell);
     }
     grid.appendChild(row);
   }
@@ -31,4 +35,4 @@ function assignBoard() {
   }
 }
 // assignBoard();
-createBoard(players.p1);
+assignBoard(players);

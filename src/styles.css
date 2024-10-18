@@ -2,6 +2,19 @@ body {
   background-color: #505050;
 }
 
+#grids {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 .row {
   display: flex;
+}
+
+.cell {
+  margin: 1px;
+  height: 30px;
+  width: 30px;
+  background-color: #353535;
 }

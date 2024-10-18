@@ -29,3 +29,5 @@ class Player {
     } else this.board.hit(x, y);
   }
 }
+
+export { Player };

@@ -16,12 +16,12 @@ function createBoard(player) {
   for (let i = 0; i < player.board.width; i++) {
     let row = document.createElement("div");
     row.className = "row";
-    row.dataset.row = i.toString();
     for (let j = 0; j < player.board.length; j++) {
       let cell = document.createElement("div");
       cell.className = "cell";
+      cell.dataset.row = i.toString();
       cell.dataset.col = j.toString();
-      row.appendChild(cell);
+      row.append(cell);
     }
     grid.appendChild(row);
   }
@@ -34,5 +34,10 @@ function assignBoard() {
     createBoard(players[player]);
   }
 }
+
+grids.addEventListener("click", (e) => {
+  console.log(e.target.dataset);
+});
+
 // assignBoard();
 assignBoard(players);

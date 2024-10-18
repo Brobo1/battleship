@@ -14,8 +14,12 @@ function createBoard(player) {
   grid.className = "grid";
 
   for (const cells of player.board.board) {
+    let row = document.createElement("div");
+    row.className = "row";
     for (const cell of cells) {
+      row.innerHTML += `<div class="cell">| 0 |</div>`;
     }
+    grid.appendChild(row);
   }
 
   grids.appendChild(grid);

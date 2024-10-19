@@ -1,10 +1,18 @@
 import { Board } from "./board";
+import { Ship } from "./ship";
 
 class Player {
   constructor(name, playerType = "computer") {
     this.name = name;
     this.playerType = playerType;
     this.board = new Board();
+    this.avaiableShips = [
+      { ship: new Ship(5), used: false },
+      { ship: new Ship(4), used: false },
+      { ship: new Ship(3), used: false },
+      { ship: new Ship(3), used: false },
+      { ship: new Ship(2), used: false },
+    ];
   }
 
   placeShip(x, y, ship, direction) {

@@ -7,11 +7,11 @@ class Player {
     this.playerType = playerType;
     this.board = new Board();
     this.avaiableShips = [
-      { ship: new Ship(5), used: false },
-      { ship: new Ship(4), used: false },
-      { ship: new Ship(3), used: false },
-      { ship: new Ship(3), used: false },
-      { ship: new Ship(2), used: false },
+      { ship: new Ship(5), placed: false },
+      { ship: new Ship(4), placed: false },
+      { ship: new Ship(3), placed: false },
+      { ship: new Ship(3), placed: false },
+      { ship: new Ship(2), placed: false },
     ];
   }
 

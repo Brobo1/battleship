@@ -2,10 +2,19 @@ body {
   background-color: #505050;
 }
 
+#container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 #grids {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+#ships {
 }
 
 .row {
@@ -17,4 +26,16 @@ body {
   height: 30px;
   width: 30px;
   background-color: #353535;
+}
+
+.ships {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 30%;
+}
+
+.ship {
+  display: flex;
 }

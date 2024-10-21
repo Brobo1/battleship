@@ -24,7 +24,7 @@ function createBoard(player) {
       cell.dataset.col = j.toString();
       player.board.placeShip(2, 2, new Ship(4), "h");
       if (player.board.board[i][j] && player.playerType === "human") {
-        cell.style.backgroundColor = "#000000";
+        cell.style.backgroundColor = "#191919";
       }
       row.appendChild(cell);
     }
@@ -34,7 +34,22 @@ function createBoard(player) {
 }
 
 function showAvailableShips() {
-  console.table(players.p1.avaiableShips);
+  let availableShips = players.p1.avaiableShips;
+  let ships = document.createElement("div");
+  ships.className = "ships";
+  for (let i = 0; i < availableShips.length; i++) {
+    let ship = document.createElement("div");
+    ship.className = "ship";
+    for (let j = 0; j < availableShips[i].ship.length; j++) {
+      let cell = document.createElement("div");
+      cell.className = "cell";
+      cell.style.backgroundColor = "#191919";
+      cell.style.pointerEvents = "none";
+      ship.appendChild(cell);
+    }
+    ships.appendChild(ship);
+  }
+  shipsDiv.appendChild(ships);
 }
 
 function assignBoard() {

@@ -11,9 +11,16 @@ const players = {
   p2: new Player("Computer", "computer"),
 };
 
+function clearBoard() {
+  while (gridsDiv.firstChild) {
+    gridsDiv.removeChild(gridsDiv.firstChild);
+  }
+}
+
 function createBoard(player) {
   let grid = document.createElement("div");
   grid.className = "grid";
+  grid.dataset.player = player.playerType;
   for (let i = 0; i < player.board.width; i++) {
     let row = document.createElement("div");
     row.className = "row";
@@ -53,6 +60,7 @@ function showAvailableShips() {
 }
 
 function assignBoard() {
+  clearBoard();
   for (const player in players) {
     createBoard(players[player]);
   }
@@ -60,8 +68,21 @@ function assignBoard() {
 
 gridsDiv.addEventListener("click", (e) => {
   const cell = e.target;
-  if (cell.className === "cell") {
-    console.log(`${cell.dataset.row}, ${cell.dataset.col}`);
+  // if (cell.className === "cell") {
+  //   console.log(`${cell.dataset.row}, ${cell.dataset.col}`);
+  // }
+});
+
+containerDiv.addEventListener("click", (e) => {
+  let target = e.target;
+  if (
+    target.className === "cell" &&
+    target.parentElement.parentElement.dataset.player === "human"
+  ) {
+    let row = parseInt(target.dataset.row);
+    let col = parseInt(target.dataset.col);
+    players.p1.placeShip(row, col, new Ship(4), "v");
+    assignBoard(players);
   }
 });
 

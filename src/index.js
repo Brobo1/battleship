@@ -1,6 +1,6 @@
 import "./styles.css";
-import { Player } from "./player";
-import { Ship } from "./ship";
+import { Player } from "./classes/player";
+import { Ship } from "./classes/ship";
 
 const containerDiv = document.getElementById("container");
 const gridsDiv = document.getElementById("grids");
@@ -29,7 +29,6 @@ function createBoard(player) {
       cell.className = "cell";
       cell.dataset.row = i.toString();
       cell.dataset.col = j.toString();
-      player.board.placeShip(2, 2, new Ship(4), "h");
       if (player.board.board[i][j] && player.playerType === "human") {
         cell.style.backgroundColor = "#191919";
       }

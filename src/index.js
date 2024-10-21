@@ -33,5 +33,6 @@ gridsDiv.addEventListener("click", (e) => {
   // }
 });
 
+showAvailableShips(players.p1, shipsDiv);
 // assignBoard();
 assignBoard(players);

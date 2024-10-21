@@ -6,15 +6,14 @@ const modalDiv = document.getElementById("modal-content");
 
 let player = new Player("Human", "human");
 
-createBoard(player, modalDiv);
-
-export function showAvailableShips(players) {
+export function showAvailableShips(players, divEle) {
   let availableShips = players.avaiableShips;
   let ships = document.createElement("div");
   ships.className = "ships";
   for (let i = 0; i < availableShips.length; i++) {
     let ship = document.createElement("div");
     ship.className = "ship";
+    ship.draggable = true;
     for (let j = 0; j < availableShips[i].ship.length; j++) {
       let cell = document.createElement("div");
       cell.className = "cell";
@@ -24,7 +23,5 @@ export function showAvailableShips(players) {
     }
     ships.appendChild(ship);
   }
-  modalDiv.appendChild(ships);
+  divEle.appendChild(ships);
 }
-
-showAvailableShips(player);

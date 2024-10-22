@@ -15,27 +15,35 @@ class Player {
     ];
   }
 
-  // placeShip(x, y, ship, direction) {
-  //   if (this.playerType === "computer") {
-  //     this.board.placeShip(
-  //       Math.floor(Math.random() * 10),
-  //       Math.floor(Math.random() * 10),
-  //       ship,
-  //       direction,
-  //     );
-  //   } else {
-  //     this.board.placeShip(x, y, ship, direction);
-  //   }
-  // }
+  placeShip(x, y, direction) {
+    let shipToPlace = this.avaiableShips.find((item) => item.placed === false);
 
-  // makeHit(x, y) {
-  //   if (this.playerType === "computer") {
-  //     this.board.hit(
-  //       Math.floor(Math.random() * 10),
-  //       Math.floor(Math.random() * 10),
-  //     );
-  //   } else this.board.hit(x, y);
-  // }
+    if (!shipToPlace) return false;
+    if (!this.board.placeShip(x, y, shipToPlace.ship, direction)) return false;
+
+    if (this.playerType === "computer") {
+      this.board.placeShip(
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+        shipToPlace.ship,
+        direction,
+      );
+      shipToPlace.placed = true;
+    } else {
+      this.board.placeShip(x, y, shipToPlace.ship, direction);
+      shipToPlace.placed = true;
+    }
+  }
+
+  makeHit(x, y) {
+    if (this.playerType === "computer") {
+      this.board.hit(
+        Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10),
+      );
+    } else this.board.hit(x, y);
+  }
 }
 
 export { Player };
+// module.exports = { Player };

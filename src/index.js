@@ -3,6 +3,7 @@ import { Player } from "./classes/player";
 import { Ship } from "./classes/ship";
 import { createBoard } from "./components/board";
 import { showAvailableShips } from "./components/startBoard";
+import "./components/game";
 
 const containerDiv = document.getElementById("container");
 const gridsDiv = document.getElementById("grids");

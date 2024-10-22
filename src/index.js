@@ -10,7 +10,7 @@ const gridsDiv = document.getElementById("grids");
 const shipsDiv = document.getElementById("ships");
 const rotateBtn = document.getElementById("rotate-btn");
 
-let isRotate = false;
+let isRotate = true;
 
 const players = {
   p1: new Player("Human", "human"),
@@ -58,6 +58,7 @@ function highlightCells(cell, color, x, y, rot = true) {
 }
 
 rotateBtn.addEventListener("click", () => {
+  rotateBtn.innerHTML = isRotate ? "Horizontal" : "Vertical";
   isRotate = !isRotate;
 });
 

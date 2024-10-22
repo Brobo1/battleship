@@ -10,6 +10,8 @@ const gridsDiv = document.getElementById("grids");
 const shipsDiv = document.getElementById("ships");
 const rotateBtn = document.getElementById("rotate-btn");
 
+let isRotate = false;
+
 const players = {
   p1: new Player("Human", "human"),
   p2: new Player("Computer", "computer"),
@@ -54,8 +56,6 @@ function highlightCells(cell, color, x, y, rot = true) {
       q.style.backgroundColor = color;
   }
 }
-
-let isRotate = false;
 
 rotateBtn.addEventListener("click", () => {
   isRotate = !isRotate;

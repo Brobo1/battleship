@@ -30,7 +30,8 @@ function assignBoard() {
 
 function highlightCells(cell, color, x, y, rot = true) {
   let coord = { x: cell.dataset.row, y: cell.dataset.col };
-  let shipLen = players.p1.avaiableShips[0].ship.length;
+  let shipLen = players.p1.avaiableShips.find((item) => item.placed === false)
+    .ship.length;
   x = parseInt(x);
   y = parseInt(y);
 
@@ -44,7 +45,7 @@ function highlightCells(cell, color, x, y, rot = true) {
     } else {
       q = document.querySelector(`[data-row='${x}'][data-col='${y + i}']`);
     }
-    if (q && !q.classList.contains("ship-placed"))
+    if (q && !q.classList.contains("cell-ship"))
       q.style.backgroundColor = color;
   }
 }
@@ -52,7 +53,7 @@ function highlightCells(cell, color, x, y, rot = true) {
 gridsDiv.addEventListener("mouseover", (e) => {
   const cell = e.target;
   if (cell.className === "cell") {
-    highlightCells(cell, "#ffffff", cell.dataset.row, cell.dataset.col, true);
+    highlightCells(cell, "#ffffff", cell.dataset.row, cell.dataset.col, false);
   }
 });
 
@@ -61,18 +62,15 @@ gridsDiv.addEventListener("click", (e) => {
   if (cell.className === "cell") {
     const row = parseInt(cell.dataset.row, 10);
     const col = parseInt(cell.dataset.col, 10);
-
-    players.p1.placeShip(row, col, players.p1.avaiableShips[0].ship, "v");
-
-    // Visually place the ship on the grid
-    console.log(players.p1.board.board);
+    players.p1.placeShip(row, col, "h");
+    assignBoard();
   }
 });
 
 gridsDiv.addEventListener("mouseout", (e) => {
   const cell = e.target;
   if (cell.className === "cell") {
-    highlightCells(cell, "#353535", cell.dataset.row, cell.dataset.col, true);
+    highlightCells(cell, "#353535", cell.dataset.row, cell.dataset.col, false);
   }
 });
 

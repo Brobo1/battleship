@@ -12,6 +12,7 @@ export function createBoard(player, divEle) {
       cell.dataset.col = j.toString();
       if (player.board.board[i][j] && player.playerType === "human") {
         cell.style.backgroundColor = "#191919";
+        cell.classList.add("cell-ship");
       }
       row.appendChild(cell);
     }

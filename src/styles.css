@@ -1,3 +1,7 @@
+:root {
+  --border-color: #3e3e3e;
+}
+
 body {
   background-color: #505050;
 }
@@ -14,6 +18,10 @@ body {
   justify-content: space-between;
 }
 
+.grid {
+  border: var(--border-color) 1px solid;
+}
+
 #ships {
 }
 
@@ -22,7 +30,9 @@ body {
 }
 
 .cell {
-  margin: 1px;
+  border: var(--border-color) 1px solid;
+  box-sizing: border-box;
+
   height: 30px;
   width: 30px;
   background-color: #353535;

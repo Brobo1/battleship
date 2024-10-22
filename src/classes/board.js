@@ -15,6 +15,8 @@ class Board {
   }
 
   placeShip(x, y, ship, direction = "h") {
+    x = parseInt(x);
+    y = parseInt(y);
     for (let i = 0; i < ship.length; i++) {
       if (direction === "h") {
         this.board[x + i][y] = ship;

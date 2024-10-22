@@ -7,6 +7,7 @@ import { showAvailableShips } from "./components/startBoard";
 const containerDiv = document.getElementById("container");
 const gridsDiv = document.getElementById("grids");
 const shipsDiv = document.getElementById("ships");
+const rotateBtn = document.getElementById("rotate-btn");
 
 const players = {
   p1: new Player("Human", "human"),
@@ -26,11 +27,82 @@ function assignBoard() {
   }
 }
 
+function highlightCells(cell, color, x, y, rot = true) {
+  let coord = { x: cell.dataset.row, y: cell.dataset.col };
+  let shipLen = players.p1.avaiableShips[0].ship.length;
+  x = parseInt(x);
+  y = parseInt(y);
+
+  if (x + shipLen > 10 && rot) x = 10 - shipLen;
+  if (y + shipLen > 10 && !rot) y = 10 - shipLen;
+
+  for (let i = 0; i < shipLen; i++) {
+    let q;
+    if (rot) {
+      q = document.querySelector(`[data-row='${x + i}'][data-col='${y}']`);
+    } else {
+      q = document.querySelector(`[data-row='${x}'][data-col='${y + i}']`);
+    }
+    if (q && !q.classList.contains("ship-placed"))
+      q.style.backgroundColor = color;
+  }
+}
+
+function placeShipOnGrid(cell, ship, direction = "h") {
+  const row = parseInt(cell.dataset.row, 10);
+  const col = parseInt(cell.dataset.col, 10);
+  const shipLen = ship.length;
+
+  if (direction === "h") {
+    for (let i = 0; i < shipLen; i++) {
+      const q = document.querySelector(
+        `[data-row='${row}'][data-col='${col + i}']`,
+      );
+      if (q) {
+        q.classList.add("ship-placed");
+        q.style.backgroundColor = "#191919"; // Color for placed ship parts
+      }
+    }
+  } else {
+    // For vertical placement
+    for (let i = 0; i < shipLen; i++) {
+      const q = document.querySelector(
+        `[data-row='${row + i}'][data-col='${col}']`,
+      );
+      if (q) {
+        q.classList.add("ship-placed");
+        q.style.backgroundColor = "#191919"; // Color for placed ship parts
+      }
+    }
+  }
+}
+
+gridsDiv.addEventListener("mouseover", (e) => {
+  const cell = e.target;
+  if (cell.className === "cell") {
+    highlightCells(cell, "#ffffff", cell.dataset.row, cell.dataset.col, true);
+  }
+});
+
 gridsDiv.addEventListener("click", (e) => {
   const cell = e.target;
-  // if (cell.className === "cell") {
-  //   console.log(`${cell.dataset.row}, ${cell.dataset.col}`);
-  // }
+  if (cell.className === "cell") {
+    const row = parseInt(cell.dataset.row, 10);
+    const col = parseInt(cell.dataset.col, 10);
+
+    players.p1.placeShip(row, col, players.p1.avaiableShips[0].ship, "v");
+
+    // Visually place the ship on the grid
+    placeShipOnGrid(cell, players.p1.avaiableShips[0].ship, "v");
+    console.log(players.p1.board);
+  }
+});
+
+gridsDiv.addEventListener("mouseout", (e) => {
+  const cell = e.target;
+  if (cell.className === "cell") {
+    highlightCells(cell, "#353535", cell.dataset.row, cell.dataset.col, true);
+  }
 });
 
 showAvailableShips(players.p1, shipsDiv);

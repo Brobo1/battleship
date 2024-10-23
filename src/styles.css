@@ -19,7 +19,8 @@ body {
 }
 
 .grid {
-  border: var(--border-color) 1px solid;
+  border-radius: 2px;
+  border: #2b2b2b 2px solid;
 }
 
 #ships {
@@ -35,12 +36,11 @@ body {
 }
 
 .cell {
-  border: var(--border-color) 1px solid;
+  border: #303030 1px solid;
   box-sizing: border-box;
-
   height: 30px;
   width: 30px;
-  background-color: #353535;
+  background-color: #3c3c3c;
 }
 
 .ships {
@@ -53,6 +53,7 @@ body {
 
 .ship {
   display: flex;
+  width: fit-content;
 }
 
 #modal {

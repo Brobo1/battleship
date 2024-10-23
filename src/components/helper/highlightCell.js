@@ -1,7 +1,7 @@
 export function highlightCells(cell, color, x, y, player, rot) {
   let shipToPlace = player.avaiableShips.find((item) => item.placed === false);
-
-  if (!shipToPlace) return false;
+  let gridData = document.querySelector("[data-player='human']");
+  if (!shipToPlace || !gridData) return false;
 
   let shipLen = shipToPlace.ship.length;
 
@@ -18,7 +18,7 @@ export function highlightCells(cell, color, x, y, player, rot) {
     } else {
       q = document.querySelector(`[data-row='${x}'][data-col='${y + i}']`);
     }
-    if (q && !q.classList.contains("cell-ship"))
+    if (q && !q.classList.contains("cell-ship") && gridData)
       q.style.backgroundColor = color;
   }
 }

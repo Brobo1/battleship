@@ -1,9 +1,9 @@
 import "./styles.css";
 import { Player } from "./classes/player";
-import { assignBoard, createBoard } from "./components/board";
 import { showAvailableShips } from "./components/startBoard";
 import "./components/game";
 import { highlightCells } from "./components/helper/highlightCell";
+import { createBoard } from "./components/board";
 import("./components/modal");
 
 const containerDiv = document.getElementById("container");
@@ -20,6 +20,22 @@ const players = {
 
 export function getPlayers() {
   return players;
+}
+function clearBoard() {
+  while (gridsDiv.firstChild) {
+    gridsDiv.removeChild(gridsDiv.firstChild);
+  }
+  while (modalGridDiv.firstChild) {
+    modalGridDiv.removeChild(modalGridDiv.firstChild);
+  }
+}
+
+export function assignBoard() {
+  clearBoard();
+  for (const player in players) {
+    createBoard(players[player], gridsDiv);
+  }
+  createBoard(players.p1, modalGridDiv);
 }
 
 showAvailableShips(players.p1, shipsDiv);

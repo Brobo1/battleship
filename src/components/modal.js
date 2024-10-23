@@ -1,4 +1,4 @@
-import { assignBoard, createBoard } from "./board";
+import { assignBoard, createBoard } from "./../index";
 import { highlightCells } from "./helper/highlightCell";
 import { getPlayers } from "../index";
 

@@ -4,11 +4,14 @@ import { Ship } from "./classes/ship";
 import { createBoard } from "./components/board";
 import { showAvailableShips } from "./components/startBoard";
 import "./components/game";
+import("./components/modal");
 
 const containerDiv = document.getElementById("container");
 const gridsDiv = document.getElementById("grids");
 const shipsDiv = document.getElementById("ships");
 const rotateBtn = document.getElementById("rotate-btn");
+const modalDiv = document.getElementById("modal");
+const modalGridDiv = document.getElementById("modal-grid");
 
 let isRotate = true;
 
@@ -17,9 +20,16 @@ const players = {
   p2: new Player("Computer", "computer"),
 };
 
+export function getPlayers() {
+  return players;
+}
+
 function clearBoard() {
   while (gridsDiv.firstChild) {
     gridsDiv.removeChild(gridsDiv.firstChild);
+  }
+  while (modalGridDiv.firstChild) {
+    modalGridDiv.removeChild(modalGridDiv.firstChild);
   }
 }
 
@@ -28,6 +38,7 @@ function assignBoard() {
   for (const player in players) {
     createBoard(players[player], gridsDiv);
   }
+  createBoard(players.p1, modalGridDiv);
 }
 
 function highlightCells(cell, color, x, y, rot = true) {
@@ -62,7 +73,7 @@ rotateBtn.addEventListener("click", () => {
   isRotate = !isRotate;
 });
 
-gridsDiv.addEventListener("mouseover", (e) => {
+modalDiv.addEventListener("mouseover", (e) => {
   const cell = e.target;
   if (cell.className === "cell") {
     highlightCells(
@@ -75,17 +86,35 @@ gridsDiv.addEventListener("mouseover", (e) => {
   }
 });
 
-gridsDiv.addEventListener("click", (e) => {
+modalDiv.addEventListener("click", (e) => {
   const cell = e.target;
   if (cell.className === "cell") {
     const row = parseInt(cell.dataset.row, 10);
     const col = parseInt(cell.dataset.col, 10);
-    players.p1.placeShip(row, col, isRotate ? "h" : "v");
+    let shipToPlace = players.p1.avaiableShips.find(
+      (item) => item.placed === false,
+    );
+
+    let shipLen = shipToPlace ? shipToPlace.ship.length : 0;
+
+    if (isRotate) {
+      if (row + shipLen > 10) {
+        players.p1.placeShip(10 - shipLen, col, "h");
+      } else {
+        players.p1.placeShip(row, col, "h");
+      }
+    } else {
+      if (col + shipLen > 10) {
+        players.p1.placeShip(row, 10 - shipLen, "v");
+      } else {
+        players.p1.placeShip(row, col, "v");
+      }
+    }
     assignBoard();
   }
 });
 
-gridsDiv.addEventListener("mouseout", (e) => {
+modalDiv.addEventListener("mouseout", (e) => {
   const cell = e.target;
   if (cell.className === "cell") {
     highlightCells(

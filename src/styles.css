@@ -29,6 +29,11 @@ body {
   display: flex;
 }
 
+#rotate-btn {
+  height: 30px;
+  width: 100px;
+}
+
 .cell {
   border: var(--border-color) 1px solid;
   box-sizing: border-box;

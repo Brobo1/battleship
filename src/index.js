@@ -71,17 +71,9 @@ gridsDiv.addEventListener("click", (e) => {
   let shipLen = shipToPlace ? shipToPlace.ship.length : 0;
 
   if (isRotate) {
-    if (row + shipLen > 10) {
-      players.p1.placeShip(10 - shipLen, col, "h");
-    } else {
-      players.p1.placeShip(row, col, "h");
-    }
+    players.p1.placeShip(row + shipLen > 10 ? 10 - shipLen : row, col, "h");
   } else {
-    if (col + shipLen > 10) {
-      players.p1.placeShip(row, 10 - shipLen, "v");
-    } else {
-      players.p1.placeShip(row, col, "v");
-    }
+    players.p1.placeShip(row, col + shipLen > 10 ? 10 - shipLen : col, "v");
   }
   assignBoard();
 });

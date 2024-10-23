@@ -1,3 +1,11 @@
+import { getPlayers } from "../index";
+
+const containerDiv = document.getElementById("container");
+const gridsDiv = document.getElementById("grids");
+const modalGridDiv = document.getElementById("modal-grid");
+
+const players = getPlayers();
+
 export function createBoard(player, divEle) {
   let grid = document.createElement("div");
   grid.className = "grid";
@@ -19,4 +27,21 @@ export function createBoard(player, divEle) {
     grid.appendChild(row);
   }
   divEle.appendChild(grid);
+}
+
+function clearBoard() {
+  while (gridsDiv.firstChild) {
+    gridsDiv.removeChild(gridsDiv.firstChild);
+  }
+  while (modalGridDiv.firstChild) {
+    modalGridDiv.removeChild(modalGridDiv.firstChild);
+  }
+}
+
+export function assignBoard() {
+  clearBoard();
+  for (const player in players) {
+    createBoard(players[player], gridsDiv);
+  }
+  createBoard(players.p1, modalGridDiv);
 }

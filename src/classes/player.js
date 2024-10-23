@@ -35,6 +35,11 @@ class Player {
     }
   }
 
+  shipsLeft() {
+    let shipLeft = this.avaiableShips.filter((item) => item.placed === false);
+    return shipLeft.length;
+  }
+
   makeHit(x, y) {
     if (this.playerType === "computer") {
       this.board.hit(

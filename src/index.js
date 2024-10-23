@@ -9,8 +9,6 @@ const containerDiv = document.getElementById("container");
 const gridsDiv = document.getElementById("grids");
 const shipsDiv = document.getElementById("ships");
 const rotateBtn = document.getElementById("rotate-btn");
-const modalDiv = document.getElementById("modal");
-const modalGridDiv = document.getElementById("modal-grid");
 
 let isRotate = true;
 
@@ -23,23 +21,14 @@ export function getPlayers() {
   return players;
 }
 
-function clearBoard() {
+export function assignBoard() {
   while (gridsDiv.firstChild) {
     gridsDiv.removeChild(gridsDiv.firstChild);
   }
-}
-
-export function assignBoard() {
-  clearBoard();
   for (const player in players) {
     createBoard(players[player], gridsDiv);
   }
 }
-
-rotateBtn.addEventListener("click", () => {
-  rotateBtn.innerHTML = isRotate ? "Horizontal" : "Vertical";
-  isRotate = !isRotate;
-});
 
 gridsDiv.addEventListener("mouseover", (e) => {
   const cell = e.target;
@@ -95,6 +84,11 @@ gridsDiv.addEventListener("click", (e) => {
     }
   }
   assignBoard();
+});
+
+rotateBtn.addEventListener("click", () => {
+  rotateBtn.innerHTML = isRotate ? "Horizontal" : "Vertical";
+  isRotate = !isRotate;
 });
 
 showAvailableShips(players.p1, shipsDiv);

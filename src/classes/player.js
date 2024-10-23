@@ -6,7 +6,7 @@ class Player {
     this.name = name;
     this.playerType = playerType;
     this.board = new Board();
-    this.avaiableShips = [
+    this.availableShips = [
       { ship: new Ship(5, "Carrier"), placed: false },
       { ship: new Ship(4, "Battleship"), placed: false },
       { ship: new Ship(3, "Cruiser"), placed: false },
@@ -16,7 +16,7 @@ class Player {
   }
 
   placeShip(x, y, direction) {
-    let shipToPlace = this.avaiableShips.find((item) => item.placed === false);
+    let shipToPlace = this.availableShips.find((item) => item.placed === false);
 
     if (!shipToPlace) return false;
     if (!this.board.placeShip(x, y, shipToPlace.ship, direction)) return false;
@@ -36,7 +36,7 @@ class Player {
   }
 
   shipsLeft() {
-    let shipLeft = this.avaiableShips.filter((item) => item.placed === false);
+    let shipLeft = this.availableShips.filter((item) => item.placed === false);
     return shipLeft.length;
   }
 

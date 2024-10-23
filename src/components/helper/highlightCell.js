@@ -1,5 +1,5 @@
 export function highlightCells(cell, color, x, y, player, rot) {
-  let shipToPlace = player.avaiableShips.find((item) => item.placed === false);
+  let shipToPlace = player.availableShips.find((item) => item.placed === false);
   let gridData = document.querySelector("[data-player='human']");
   if (!shipToPlace || !gridData) return false;
 

@@ -7,7 +7,7 @@ const modalDiv = document.getElementById("modal-content");
 let player = new Player("Human", "human");
 
 export function showAvailableShips(players, divEle) {
-  let availableShips = players.avaiableShips;
+  let availableShips = players.availableShips;
   let ships = document.createElement("div");
   ships.className = "ships";
   for (let i = 0; i < availableShips.length; i++) {

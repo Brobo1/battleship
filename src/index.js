@@ -76,6 +76,8 @@ function startBoard() {
     } else {
       players.p1.placeShip(row, col + shipLen > 10 ? 10 - shipLen : col, "v");
     }
+    
+ 
     assignBoard();
     startGame();
   });
@@ -86,6 +88,7 @@ function startBoard() {
   });
 }
 
+let counter = 0
 function game() {
   gridsDiv.addEventListener("mouseover", (e) => {
     const cell = e.target;
@@ -100,10 +103,13 @@ function game() {
       return;
     cell.style.backgroundColor = "#3c3c3c";
   });
+  console.log(counter++);
+  
 }
 
 function startGame() {
-  if (players.p1.shipsLeft() > 0) startBoard();
+  console.log("ships left: ", players.p1.shipsLeft());
+  if (players.p1.shipsLeft() > 3) startBoard();
   else game();
 }
 

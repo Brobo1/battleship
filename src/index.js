@@ -11,6 +11,7 @@ const shipsDiv = document.getElementById("ships");
 const rotateBtn = document.getElementById("rotate-btn");
 
 let isRotate = true;
+let listeners = false;
 
 const players = {
   p1: new Player("Human", "human"),
@@ -31,64 +32,65 @@ export function assignBoard() {
 }
 
 function startBoard() {
-  gridsDiv.addEventListener("mouseover", (e) => {
-    const cell = e.target;
-    if (cell.className !== "cell" || !cell.closest("[data-player='human']"))
-      return;
-    highlightCells(
-      cell,
-      "#ffffff",
-      cell.dataset.row,
-      cell.dataset.col,
-      players.p1,
-      isRotate,
-    );
-  });
+  if (!listeners) {
+    gridsDiv.addEventListener("mouseover", (e) => {
+      const cell = e.target;
+      if (cell.className !== "cell" || !cell.closest("[data-player='human']"))
+        return;
+      highlightCells(
+        cell,
+        "#ffffff",
+        cell.dataset.row,
+        cell.dataset.col,
+        players.p1,
+        isRotate,
+      );
+    });
 
-  gridsDiv.addEventListener("mouseout", (e) => {
-    const cell = e.target;
-    if (cell.className !== "cell" || !cell.closest("[data-player='human']"))
-      return;
-    highlightCells(
-      cell,
-      "#3c3c3c",
-      cell.dataset.row,
-      cell.dataset.col,
-      players.p1,
-      isRotate,
-    );
-  });
+    gridsDiv.addEventListener("mouseout", (e) => {
+      const cell = e.target;
+      if (cell.className !== "cell" || !cell.closest("[data-player='human']"))
+        return;
+      highlightCells(
+        cell,
+        "#3c3c3c",
+        cell.dataset.row,
+        cell.dataset.col,
+        players.p1,
+        isRotate,
+      );
+    });
 
-  gridsDiv.addEventListener("click", (e) => {
-    const cell = e.target;
-    if (cell.className !== "cell" || !cell.closest("[data-player='human']"))
-      return;
-    const row = parseInt(cell.dataset.row, 10);
-    const col = parseInt(cell.dataset.col, 10);
-    let shipToPlace = players.p1.availableShips.find(
-      (item) => item.placed === false,
-    );
+    gridsDiv.addEventListener("click", (e) => {
+      const cell = e.target;
+      if (cell.className !== "cell" || !cell.closest("[data-player='human']"))
+        return;
+      const row = parseInt(cell.dataset.row, 10);
+      const col = parseInt(cell.dataset.col, 10);
+      let shipToPlace = players.p1.availableShips.find(
+        (item) => item.placed === false,
+      );
 
-    let shipLen = shipToPlace ? shipToPlace.ship.length : 0;
+      let shipLen = shipToPlace ? shipToPlace.ship.length : 0;
 
-    if (isRotate) {
-      players.p1.placeShip(row + shipLen > 10 ? 10 - shipLen : row, col, "h");
-    } else {
-      players.p1.placeShip(row, col + shipLen > 10 ? 10 - shipLen : col, "v");
-    }
-    
- 
-    assignBoard();
-    startGame();
-  });
+      if (isRotate) {
+        players.p1.placeShip(row + shipLen > 10 ? 10 - shipLen : row, col, "h");
+      } else {
+        players.p1.placeShip(row, col + shipLen > 10 ? 10 - shipLen : col, "v");
+      }
 
-  rotateBtn.addEventListener("click", () => {
-    rotateBtn.innerHTML = isRotate ? "Horizontal" : "Vertical";
-    isRotate = !isRotate;
-  });
+      assignBoard();
+      startGame();
+    });
+
+    rotateBtn.addEventListener("click", () => {
+      rotateBtn.innerHTML = isRotate ? "Horizontal" : "Vertical";
+      isRotate = !isRotate;
+    });
+    listeners = true;
+  }
 }
 
-let counter = 0
 function game() {
   gridsDiv.addEventListener("mouseover", (e) => {
     const cell = e.target;
@@ -103,13 +105,11 @@ function game() {
       return;
     cell.style.backgroundColor = "#3c3c3c";
   });
-  console.log(counter++);
-  
 }
 
 function startGame() {
   console.log("ships left: ", players.p1.shipsLeft());
-  if (players.p1.shipsLeft() > 3) startBoard();
+  if (players.p1.shipsLeft() > 0) startBoard();
   else game();
 }
 

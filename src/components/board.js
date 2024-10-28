@@ -19,6 +19,15 @@ export function createBoard(player, divEle) {
       if (player.board.board[i][j] && player.playerType === "human") {
         cell.style.backgroundColor = "#191919";
         cell.classList.add("cell-ship");
+        console.log(player.board.board[i][j].hits);
+        if (player.board.board[i][j].hits[0]) {
+          cell.style.backgroundColor = "#ff0000";
+          cell.classList.add("cell-hit");
+        }
+      }
+      if (player.board.board[i][j] && player.playerType === "computer") {
+        cell.style.backgroundColor = "#191919";
+        cell.classList.add("cell-ship");
       }
       row.appendChild(cell);
     }

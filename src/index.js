@@ -80,7 +80,7 @@ function startBoard() {
       }
 
       //TODO Implement computer placement
-      players.p2.placeShip();
+      players.p2.placeShip(2, 2, "h");
       console.table(players.p2.board.board);
 
       assignBoard();
@@ -108,6 +108,12 @@ function game() {
     if (cell.className !== "cell" || !cell.closest("[data-player='computer']"))
       return;
     cell.style.backgroundColor = "#3c3c3c";
+  });
+
+  gridsDiv.addEventListener("click", (e) => {
+    const cell = e.target;
+    if (cell.className !== "cell" || !cell.closest("[data-player='computer']"))
+      return;
   });
 }
 

@@ -17,22 +17,27 @@ class Player {
 
   placeShip(x = 0, y = 0, direction = "v") {
     let shipToPlace = this.availableShips.find((item) => item.placed === false);
-
     if (!shipToPlace) return false;
-    if (!this.board.placeShip(x, y, shipToPlace.ship, direction)) return false;
 
+    // For computer player, generate random coordinates
     if (this.playerType === "computer") {
-      this.board.placeShip(
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        shipToPlace.ship,
-        Math.random() > 0.5 ? "h" : "v",
-      );
-      shipToPlace.placed = true;
-    } else {
-      this.board.placeShip(x, y, shipToPlace.ship, direction);
-      shipToPlace.placed = true;
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+      direction = Math.random() < 0.5 ? "v" : "h";
     }
+
+    // Try to place the ship
+    if (this.board.placeShip(x, y, shipToPlace.ship, direction)) {
+      shipToPlace.placed = true;
+      return true;
+    }
+
+    // If placement failed for computer, we might want to try again
+    if (this.playerType === "computer") {
+      return this.placeShip(); // Recursive call with new random coordinates
+    }
+
+    return false;
   }
 
   shipsLeft() {

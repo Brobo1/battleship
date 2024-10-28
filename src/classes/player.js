@@ -15,7 +15,7 @@ class Player {
     ];
   }
 
-  placeShip(x, y, direction) {
+  placeShip(x = 0, y = 0, direction = "v") {
     let shipToPlace = this.availableShips.find((item) => item.placed === false);
 
     if (!shipToPlace) return false;
@@ -26,7 +26,7 @@ class Player {
         Math.floor(Math.random() * 10),
         Math.floor(Math.random() * 10),
         shipToPlace.ship,
-        direction,
+        Math.random() > 0.5 ? "h" : "v",
       );
       shipToPlace.placed = true;
     } else {

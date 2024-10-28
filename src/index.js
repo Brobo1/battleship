@@ -79,6 +79,10 @@ function startBoard() {
         players.p1.placeShip(row, col + shipLen > 10 ? 10 - shipLen : col, "v");
       }
 
+      //TODO Implement computer placement
+      players.p2.placeShip();
+      console.table(players.p2.board.board);
+
       assignBoard();
       startGame();
     });
@@ -108,7 +112,6 @@ function game() {
 }
 
 function startGame() {
-  console.log("ships left: ", players.p1.shipsLeft());
   if (players.p1.shipsLeft() > 0) startBoard();
   else game();
 }

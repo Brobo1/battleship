@@ -85,6 +85,7 @@ function startBoard() {
 
     gridsDiv.addEventListener("click", (e) => {
       const cell = e.target;
+      console.log(123);
       if (cell.className !== "cell" || !cell.closest("[data-player='human']"))
         return;
       const row = parseInt(cell.dataset.row, 10);

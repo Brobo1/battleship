@@ -19,14 +19,21 @@ export function createBoard(player, divEle) {
       cell.dataset.row = i.toString();
       cell.dataset.col = j.toString();
 
+      let hits = player.board.hits.find((hit) => hit.x === i && hit.y === j);
+
       if (player.board.board[i][j]) {
         cell.classList.add("cell-ship");
-        if (player.board.hits.some((hit) => hit.x === i && hit.y === j)) {
+        if (hits && hits.hit) {
           cell.classList.add("cell-hit");
-          cell.style.backgroundColor = "red";
+          cell.style.backgroundColor = "#b13838";
+          cell.innerHTML = "X";
         } else {
-          cell.style.backgroundColor = "#191919";
+          if (player.playerType === "human")
+            cell.style.backgroundColor = "#191919";
         }
+      } else if (hits && !hits.hit) {
+        cell.classList.add("cell-miss");
+        cell.style.backgroundColor = "#b13838";
       }
       row.appendChild(cell);
     }

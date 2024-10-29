@@ -1,6 +1,6 @@
 import "./styles.css";
 import { Player } from "./classes/player";
-import { showAvailableShips } from "./components/startBoard";
+import { showAvailableShips } from "./components/shipsLeft";
 // import "./components/game";
 import { createBoard } from "./components/createBoard";
 import { highlightCells } from "./components/helper/highlightCell";
@@ -18,9 +18,6 @@ const players = {
   p1: new Player("Human", "human"),
   p2: new Player("Computer", "computer"),
 };
-
-players.p1.placeShip(0, 0, "h");
-players.p1.makeHit(0, 0);
 
 export function getPlayers() {
   return players;
@@ -83,8 +80,7 @@ function startBoard() {
         players.p1.placeShip(row, col + shipLen > 10 ? 10 - shipLen : col, "v");
       }
 
-      //TODO Implement computer placement
-      players.p2.placeShip(2, 2, "h");
+      players.p2.placeShip();
 
       assignBoard();
       startGame();
@@ -123,7 +119,7 @@ function game() {
     const row = parseInt(cell.dataset.row, 10);
     const col = parseInt(cell.dataset.col, 10);
     players.p2.makeHit(row, col);
-    console.log(players.p2.board.board);
+    showAvailableShips(players.p2, shipsDiv);
     assignBoard();
   });
 }
@@ -132,6 +128,7 @@ function startGame() {
   if (players.p1.shipsLeft() > 0) {
     startBoard();
   } else if (!isStart) {
+    rotateBtn.style.display = "none";
     game();
     isStart = true;
   }
@@ -139,5 +136,6 @@ function startGame() {
 
 startGame();
 showAvailableShips(players.p1, shipsDiv);
+showAvailableShips(players.p2, shipsDiv);
 // assignBoard();
 assignBoard(players);

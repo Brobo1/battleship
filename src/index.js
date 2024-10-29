@@ -18,9 +18,9 @@ const players = {
   p2: new Player("Computer", "computer"),
 };
 
-// players.p1.placeShip(0, 0, "h");
-// players.p1.makeHit(0, 0);
-// players.p1.makeHit(1, 0);
+players.p1.placeShip(0, 0, "h");
+players.p1.makeHit(0, 0);
+console.log(players.p1.board.board);
 
 export function getPlayers() {
   return players;

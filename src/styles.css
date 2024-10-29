@@ -59,6 +59,10 @@ body {
   width: 30%;
 }
 
+.computer {
+  align-items: end;
+}
+
 .ship {
   display: flex;
   width: fit-content;
@@ -109,7 +113,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.win-text  {
+.win-text {
   font-size: 50px;
   font-weight: 100;
 }

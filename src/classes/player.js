@@ -46,12 +46,13 @@ class Player {
   }
 
   makeHit(x, y) {
-    if (this.playerType === "computer") {
-      this.board.hit(
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-      );
-    } else this.board.hit(x, y);
+    // if (this.playerType === "human") {
+    //   this.board.hit(
+    //     Math.floor(Math.random() * 10),
+    //     Math.floor(Math.random() * 10),
+    //   );
+    // } else this.board.hit(x, y);
+    this.board.hit(x, y);
   }
 }
 

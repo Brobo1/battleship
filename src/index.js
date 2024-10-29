@@ -18,8 +18,9 @@ const players = {
   p2: new Player("Computer", "computer"),
 };
 
-players.p1.placeShip(0, 0, "h");
-players.p1.makeHit(0, 0);
+// players.p1.placeShip(0, 0, "h");
+// players.p1.makeHit(0, 0);
+// players.p1.makeHit(1, 0);
 
 export function getPlayers() {
   return players;
@@ -84,7 +85,6 @@ function startBoard() {
 
       //TODO Implement computer placement
       players.p2.placeShip(2, 2, "h");
-      console.table(players.p2.board.board);
 
       assignBoard();
       startGame();
@@ -103,7 +103,7 @@ function game() {
     const cell = e.target;
     if (cell.className !== "cell" || !cell.closest("[data-player='computer']"))
       return;
-    cell.style.backgroundColor = "#191919";
+    cell.style.backgroundColor = "#494949";
   });
 
   gridsDiv.addEventListener("mouseout", (e) => {
@@ -115,14 +115,24 @@ function game() {
 
   gridsDiv.addEventListener("click", (e) => {
     const cell = e.target;
-    if (cell.className !== "cell" || !cell.closest("[data-player='computer']"))
+    if (
+      (cell.className !== "cell" && cell.className !== "cell cell-ship") ||
+      !cell.closest("[data-player='computer']")
+    )
       return;
+    const row = parseInt(cell.dataset.row, 10);
+    const col = parseInt(cell.dataset.col, 10);
+    players.p2.makeHit(row, col);
+    console.log(row + " " + col);
+    assignBoard();
   });
 }
 
 function startGame() {
-  if (players.p1.shipsLeft() > 0) startBoard();
-  else game();
+  if (players.p1.shipsLeft() > 0) {
+    startBoard();
+    // gridsDiv.removeEventListener("click", (e) => {});
+  } else game();
 }
 
 startGame();

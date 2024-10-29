@@ -16,18 +16,14 @@ export function createBoard(player, divEle) {
       cell.className = "cell";
       cell.dataset.row = i.toString();
       cell.dataset.col = j.toString();
-      if (player.board.board[i][j] && player.playerType === "human") {
-        cell.style.backgroundColor = "#191919";
+      if (player.board.board[i][j]) {
         cell.classList.add("cell-ship");
-        console.log(player.board.board[i][j].hits);
-        if (player.board.board[i][j].hits[0]) {
-          cell.style.backgroundColor = "#ff0000";
+        if (player.board.board[i][j].hits.some((item) => item === true)) {
           cell.classList.add("cell-hit");
+          cell.style.backgroundColor = "red";
+        } else {
+          cell.style.backgroundColor = "#191919";
         }
-      }
-      if (player.board.board[i][j] && player.playerType === "computer") {
-        cell.style.backgroundColor = "#191919";
-        cell.classList.add("cell-ship");
       }
       row.appendChild(cell);
     }

@@ -36,6 +36,8 @@ class Board {
   }
 
   hit(x, y) {
+    x = parseInt(x);
+    y = parseInt(y);
     if (this.board[x][y]) {
       let ship = this.board[x][y];
       for (let i = 0; i < ship.hits.length; i++) {

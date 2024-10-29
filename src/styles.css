@@ -41,6 +41,7 @@ body {
 #rotate-btn {
   height: 30px;
   width: 100px;
+  margin: 20px 0;
 }
 
 .cell {

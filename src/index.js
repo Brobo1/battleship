@@ -4,6 +4,7 @@ import { showAvailableShips } from "./components/shipsLeft";
 // import "./components/game";
 import { createBoard } from "./components/createBoard";
 import { highlightCells } from "./components/helper/highlightCell";
+import { compHit } from "./components/computerHit";
 
 const containerDiv = document.getElementById("container");
 const gridsDiv = document.getElementById("grids");
@@ -99,6 +100,14 @@ function game() {
     const cell = e.target;
     if (cell.className !== "cell" || !cell.closest("[data-player='computer']"))
       return;
+
+    const row = parseInt(cell.dataset.row, 10);
+    const col = parseInt(cell.dataset.col, 10);
+    players.p2.makeHit(row, col);
+    compHit(players.p1);
+    showAvailableShips(players.p1, shipsDiv);
+    showAvailableShips(players.p2, shipsDiv);
+    assignBoard();
     cell.style.backgroundColor = "#494949";
   });
 
@@ -119,6 +128,8 @@ function game() {
     const row = parseInt(cell.dataset.row, 10);
     const col = parseInt(cell.dataset.col, 10);
     players.p2.makeHit(row, col);
+    compHit(players.p1);
+    showAvailableShips(players.p1, shipsDiv);
     showAvailableShips(players.p2, shipsDiv);
     assignBoard();
   });

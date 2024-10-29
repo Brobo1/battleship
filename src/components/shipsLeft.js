@@ -16,7 +16,13 @@ export function showAvailableShips(players, divEle) {
 
     for (let j = 0; j < availableShips[i].ship.length; j++) {
       let cell = document.createElement("div");
+
       if (players.playerType === "computer" && availableShips[i].ship.sunk) {
+        cell.style.backgroundColor = "#b13838";
+      } else if (
+        players.playerType === "human" &&
+        availableShips[i].ship.sunk
+      ) {
         cell.style.backgroundColor = "#b13838";
       } else {
         cell.style.backgroundColor = "#191919";

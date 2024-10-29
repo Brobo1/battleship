@@ -1,5 +1,3 @@
-import { Player } from "../classes/player";
-
 export function showAvailableShips(players, divEle) {
   let availableShips = players.availableShips;
   const existingShips = divEle.querySelectorAll(`.${players.playerType} `);

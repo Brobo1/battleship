@@ -1,13 +1,12 @@
-import { getPlayers } from "../index";
-
-const containerDiv = document.getElementById("container");
-const gridsDiv = document.getElementById("grids");
-const modalGridDiv = document.getElementById("modal-grid");
-
 export function createBoard(player, divEle) {
-  let grid = document.createElement("div");
-  grid.className = "grid";
-  grid.dataset.player = player.playerType;
+  let grid = divEle.querySelector(`[data-player="${player.playerType}"]`);
+  if (!grid) {
+    grid = document.createElement("div");
+    grid.className = "grid";
+    grid.dataset.player = player.playerType;
+    divEle.appendChild(grid);
+  }
+  grid.innerHTML = "";
 
   for (let i = 0; i < player.board.width; i++) {
     let row = document.createElement("div");
@@ -16,6 +15,7 @@ export function createBoard(player, divEle) {
     for (let j = 0; j < player.board.length; j++) {
       let cell = document.createElement("div");
       cell.className = "cell";
+      cell.id = `${player.playerType}-${i}-${j}`;
       cell.dataset.row = i.toString();
       cell.dataset.col = j.toString();
 

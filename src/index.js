@@ -20,10 +20,6 @@ const players = {
   p2: new Player("Computer", "computer"),
 };
 
-export function getPlayers() {
-  return players;
-}
-
 export function assignBoard() {
   while (gridsDiv.firstChild) {
     gridsDiv.removeChild(gridsDiv.firstChild);
@@ -33,6 +29,30 @@ export function assignBoard() {
   }
 }
 
+function startScreen() {
+  const startDiv = document.createElement("div");
+  startDiv.className = "start-container";
+  startDiv.style.position = "absolute";
+  startDiv.style.top = "50%";
+  startDiv.style.left = "50%";
+  startDiv.style.transform = "translate(-50%, -50%)";
+  startDiv.style.padding = "20px";
+  startDiv.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+  startDiv.style.color = "#fff";
+  startDiv.style.textAlign = "center";
+  startDiv.style.border = "2px solid #fff";
+  startDiv.style.borderRadius = "10px";
+  startDiv.innerHTML = "Place your ships to start the game";
+
+  const computerGrid = gridsDiv.querySelector("[data-player='computer']");
+  computerGrid.appendChild(startDiv);
+}
+function hideStartScreen() {
+  const startDiv = gridsDiv.querySelector(".start-container");
+  if (startDiv) {
+    startDiv.style.display = "none";
+  }
+}
 function startBoard() {
   if (!listeners) {
     gridsDiv.addEventListener("mouseover", (e) => {
@@ -73,18 +93,32 @@ function startBoard() {
         (item) => item.placed === false,
       );
 
-      let shipLen = shipToPlace ? shipToPlace.ship.length : 0;
+      if (shipToPlace) {
+        let shipLen = shipToPlace.ship.length;
 
-      if (isRotate) {
-        players.p1.placeShip(row + shipLen > 10 ? 10 - shipLen : row, col, "h");
-      } else {
-        players.p1.placeShip(row, col + shipLen > 10 ? 10 - shipLen : col, "v");
+        if (isRotate) {
+          players.p1.placeShip(
+            row + shipLen > 10 ? 10 - shipLen : row,
+            col,
+            "h",
+          );
+        } else {
+          players.p1.placeShip(
+            row,
+            col + shipLen > 10 ? 10 - shipLen : col,
+            "v",
+          );
+        }
+
+        players.p2.placeShip();
+        createBoard(players.p1, gridsDiv);
+        createBoard(players.p2, gridsDiv);
+        // Check if all ships are placed
+        if (players.p1.availableShips.every((ship) => ship.placed)) {
+          hideStartScreen();
+          startGame();
+        }
       }
-
-      players.p2.placeShip();
-
-      assignBoard();
-      startGame();
     });
 
     rotateBtn.addEventListener("click", () => {
@@ -98,7 +132,10 @@ function startBoard() {
 function game() {
   gridsDiv.addEventListener("mouseover", (e) => {
     const cell = e.target;
-    if (cell.className !== "cell" || !cell.closest("[data-player='computer']"))
+    if (
+      (cell.className !== "cell" && cell.className !== "cell cell-ship") ||
+      !cell.closest("[data-player='computer']")
+    )
       return;
 
     cell.style.backgroundColor = "#494949";
@@ -106,7 +143,10 @@ function game() {
 
   gridsDiv.addEventListener("mouseout", (e) => {
     const cell = e.target;
-    if (cell.className !== "cell" || !cell.closest("[data-player='computer']"))
+    if (
+      (cell.className !== "cell" && cell.className !== "cell cell-ship") ||
+      !cell.closest("[data-player='computer']")
+    )
       return;
     cell.style.backgroundColor = "#3c3c3c";
   });
@@ -124,7 +164,9 @@ function game() {
     compHit(players.p1);
     showAvailableShips(players.p1, shipsDiv);
     showAvailableShips(players.p2, shipsDiv);
-    assignBoard();
+    // assignBoard();
+    createBoard(players.p1, gridsDiv);
+    createBoard(players.p2, gridsDiv);
     checkWin();
   });
 }
@@ -160,5 +202,8 @@ function checkWin() {
 startGame();
 showAvailableShips(players.p1, shipsDiv);
 showAvailableShips(players.p2, shipsDiv);
+createBoard(players.p1, gridsDiv);
+createBoard(players.p2, gridsDiv);
 // assignBoard();
-assignBoard(players);
+// assignBoard(players);
+startScreen();

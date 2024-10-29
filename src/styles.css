@@ -47,8 +47,8 @@ body {
 .cell {
   border: #303030 1px solid;
   box-sizing: border-box;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   background-color: #3c3c3c;
 }
 

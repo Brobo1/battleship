@@ -125,6 +125,7 @@ function game() {
     showAvailableShips(players.p1, shipsDiv);
     showAvailableShips(players.p2, shipsDiv);
     assignBoard();
+    checkWin();
   });
 }
 
@@ -136,6 +137,24 @@ function startGame() {
     game();
     isStart = true;
   }
+}
+
+function checkWin() {
+  let winner;
+  if (players.p1.board.allSunk()) {
+    winner = players.p2.name;
+  } else if (players.p2.board.allSunk()) {
+    winner = players.p1.name;
+  } else return;
+
+  let winText = document.createElement("p");
+  winText.className = "win-text";
+  winText.textContent = `${winner} wins!`;
+
+  let winDiv = document.createElement("div");
+  winDiv.className = "win-container";
+  winDiv.appendChild(winText);
+  containerDiv.appendChild(winDiv);
 }
 
 startGame();

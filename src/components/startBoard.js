@@ -1,5 +1,5 @@
 import { Player } from "../classes/player";
-import { createBoard } from "./board";
+import { createBoard } from "./createBoard";
 
 const shipsDiv = document.getElementById("ships");
 const modalDiv = document.getElementById("modal-content");

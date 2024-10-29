@@ -1,8 +1,8 @@
 import "./styles.css";
 import { Player } from "./classes/player";
 import { showAvailableShips } from "./components/startBoard";
-import "./components/game";
-import { createBoard } from "./components/board";
+// import "./components/game";
+import { createBoard } from "./components/createBoard";
 import { highlightCells } from "./components/helper/highlightCell";
 
 const containerDiv = document.getElementById("container");
@@ -11,6 +11,7 @@ const shipsDiv = document.getElementById("ships");
 const rotateBtn = document.getElementById("rotate-btn");
 
 let isRotate = true;
+let isStart = false;
 let listeners = false;
 
 const players = {
@@ -20,7 +21,6 @@ const players = {
 
 players.p1.placeShip(0, 0, "h");
 players.p1.makeHit(0, 0);
-console.log(players.p1.board.board);
 
 export function getPlayers() {
   return players;
@@ -123,7 +123,7 @@ function game() {
     const row = parseInt(cell.dataset.row, 10);
     const col = parseInt(cell.dataset.col, 10);
     players.p2.makeHit(row, col);
-    console.log(row + " " + col);
+    console.log(players.p2.board.board);
     assignBoard();
   });
 }
@@ -131,8 +131,10 @@ function game() {
 function startGame() {
   if (players.p1.shipsLeft() > 0) {
     startBoard();
-    // gridsDiv.removeEventListener("click", (e) => {});
-  } else game();
+  } else if (!isStart) {
+    game();
+    isStart = true;
+  }
 }
 
 startGame();
